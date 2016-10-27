@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.sicau.Service.UserService;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	
+	UserService us = new UserService();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,18 +43,24 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		String username = request.getParameter("username");
-		String userpassword = request.getParameter("userpassword");
+		String userid = request.getParameter("username");
+		String userpwd = request.getParameter("userpassword");
 		
-		String backpack = username + userpassword;
-		String callback = "你个傻逼不得了啊?";
-		/*输出需要设置编码头*/
+		int status = us.login(userid, userpwd);
+		
+//		String backpack = username + userpassword;
+//		String callback = "你个傻逼不得了啊?";
+//		/*输出需要设置编码头*/
 		response.setHeader("content-type", "text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.print(backpack+":"+callback);
-		/*用完之后关闭*/
-		out.flush();
-		out.close();
+		if(status == 0){
+			PrintWriter out = response.getWriter();
+			out.print("请检查用户名和密码是否正确!");
+		}
+		
+//		out.print(backpack+":"+callback);
+//		/*用完之后关闭*/
+//		out.flush();
+//		out.close();
 		
 	}
 
