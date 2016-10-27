@@ -1,0 +1,2 @@
+# RuralInformationPlatform
+for our homework
