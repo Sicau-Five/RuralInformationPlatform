@@ -8,10 +8,12 @@ import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.junit.Test;
+import org.sicau.dao.Impl.jdbcBuild;
+import org.sicau.util.DBConnection;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-public class TestDBUtil {
+public class TestDBUtil extends jdbcBuild{
 	
 	@Test
 	public void m1() throws SQLException{
@@ -31,6 +33,20 @@ public class TestDBUtil {
 		List<Map<String,Object>> list = querryRunner.query(con, sql, new MapListHandler());
 		//最后输出
 		System.out.println("list: " + list);
+	}
+	
+	
+	/*
+	 * m2用于测试封装的jdbcBuild
+	 * DBConnection将使用c3p0链接数据库的DBUtil封装起来,使用单列模式提高数据库访问效率
+	 * 而jdbcBuild又对DBConnection再次封装
+	 * 这样子就可以在实际使用中像使用数据库查询一样的方式来访问数据库了!
+	 * */
+	@Test
+	public void m2() throws SQLException{
+		String sql = "select * from user";
+		List<Map<String, Object>> list = findAllForList(sql);
+		System.out.println(list);
 	}
 }
 

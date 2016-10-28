@@ -1,5 +1,7 @@
 package org.sicau.Service;
 
+import java.sql.SQLException;
+
 import org.sicau.dao.UserDao;
 import org.sicau.dao.Impl.UserDaoImpl;
 
@@ -13,7 +15,7 @@ public class UserService {
 	 * @return int 0--Ê§°Ü  1--³É¹¦
 	 * 
 	 * */
-	public int login(String userid, String userpwd){
+	public int login(String userid, String userpwd) throws SQLException{
 		return u.FindUser(userid, userpwd);
 	}
 }

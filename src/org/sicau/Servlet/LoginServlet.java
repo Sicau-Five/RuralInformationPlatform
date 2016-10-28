@@ -2,6 +2,7 @@ package org.sicau.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.sicau.Service.UserService;
+import org.sicau.util.Tools;
 
 /**
  * Servlet implementation class LoginServlet
@@ -46,22 +48,21 @@ public class LoginServlet extends HttpServlet {
 		String userid = request.getParameter("username");
 		String userpwd = request.getParameter("userpassword");
 		
-		int status = us.login(userid, userpwd);
-		
-//		String backpack = username + userpassword;
-//		String callback = "你个傻逼不得了啊?";
-//		/*输出需要设置编码头*/
+		int status=0;
+		try {
+			status = us.login(userid,Tools.MD5Encode(userpwd, ""));
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		response.setHeader("content-type", "text/html;charset=utf-8");
 		if(status == 0){
 			PrintWriter out = response.getWriter();
 			out.print("请检查用户名和密码是否正确!");
+		}else{
+			PrintWriter out = response.getWriter();
+			out.print("登陆成功");
 		}
-		
-//		out.print(backpack+":"+callback);
-//		/*用完之后关闭*/
-//		out.flush();
-//		out.close();
-		
 	}
 
 }
