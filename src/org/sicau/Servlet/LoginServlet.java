@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.sicau.Service.UserService;
 import org.sicau.util.Tools;
@@ -47,7 +48,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String userid = request.getParameter("username");
 		String userpwd = request.getParameter("userpassword");
-		
+		//设置一个session
+		HttpSession session = request.getSession();
 		int status=0;
 		try {
 			status = us.login(userid,Tools.MD5Encode(userpwd, ""));
@@ -56,13 +58,19 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		response.setHeader("content-type", "text/html;charset=utf-8");
-		if(status == 0){
-			PrintWriter out = response.getWriter();
-			out.print("请检查用户名和密码是否正确!");
-		}else{
-			PrintWriter out = response.getWriter();
-			out.print("登陆成功");
+		//获取到status登录状态之后需要
+		/*
+		 * 1.登录成功,跳转到主页,并显示session
+		 * 2.登录失败,js提示登录失败,不跳转
+		 * */
+		if(status == 1){
+			session = request.getSession();
+			session.setAttribute("userid", userid);
+			response.sendRedirect("index.jsp");
+			
 		}
+		PrintWriter out = response.getWriter();
+		out.print("fuck!错误的!");
 	}
 
 }
