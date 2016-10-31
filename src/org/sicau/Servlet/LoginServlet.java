@@ -68,9 +68,11 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userid", userid);
 			response.sendRedirect("index.jsp");
 			
+		}else{
+			session.setAttribute("userid", "error");
+			response.sendRedirect("login.jsp");
 		}
-		PrintWriter out = response.getWriter();
-		out.print("fuck!´íÎóµÄ!");
+		
 	}
 
 }

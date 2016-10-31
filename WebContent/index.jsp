@@ -151,6 +151,7 @@
 						<h1 id="glyphicons" class="page-header">川农信息平台暂时主页</h1>
 						<h2 id="glyphicons-glyphs">这是一个农业服务平台</h2>
 						<p>如果你有什么农业方面的需要?</p>
+						<p>测试账号:20140243 密码:1314</p>
 						<div class="bs-glyphicons">
 							<ul class="bs-glyphicons-list">
 								<li>
