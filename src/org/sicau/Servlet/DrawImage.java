@@ -7,14 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
  * 生成随机图片，用来作为验证码
  */
+@WebServlet("/drawimage.do")
 public class DrawImage extends HttpServlet {
     private static final long serialVersionUID = 3038623696184546092L;
     

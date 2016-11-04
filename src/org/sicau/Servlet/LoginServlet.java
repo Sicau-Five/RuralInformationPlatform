@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -48,32 +48,44 @@ public class LoginServlet extends HttpServlet {
 		
 		String userid = request.getParameter("username");
 		String userpwd = request.getParameter("userpassword");
-		//设置一个session
-		HttpSession session = request.getSession();
-		int status=0;
-		try {
-			status = us.login(userid,Tools.MD5Encode(userpwd, ""));
-		} catch (SQLException e) {
+		String verifycode = request.getParameter("verify");
+		//先判断账号密码
+		if (userid.equals("") || userpwd.equals("")) {
+			request.setAttribute("info", "账号密码不能为空");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}else if(verifycode.equals("")){//验证码不能为空
+			request.setAttribute("info", "验证码不能为空");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}else{//以下是都不为空的情况
 			
-			e.printStackTrace();
-		}
-		response.setHeader("content-type", "text/html;charset=utf-8");
-		//获取到status登录状态之后需要
-		/*
-		 * 1.登录成功,跳转到主页,并显示session
-		 * 2.登录失败,js提示登录失败,不跳转
-		 * */
-		if(status == 1){
-			session = request.getSession();
-			session.setAttribute("userid", userid);
-			response.sendRedirect("index.jsp");
-			
-		}else{
-			session.setAttribute("userid", "error");
-			response.sendRedirect("login.jsp");
-		}
-		
-	}
+			//设置一个session
+			HttpSession session = request.getSession();
+			int status=0;
+			try {
+				status = us.login(userid,Tools.MD5Encode(userpwd, ""));
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			response.setHeader("content-type", "text/html;charset=utf-8");
+			//获取到status登录状态之后需要
+			/*
+			 * 1.登录成功,跳转到主页,并显示session
+			 * 2.登录失败,js提示登录失败,不跳转
+			 * */
+			if(status == 1 && verifycode.equals(request.getSession().getAttribute("checkcode"))){
+				session = request.getSession();
+				session.setAttribute("userid", userid);
+				response.sendRedirect("index.jsp");
+			}else if(status == 0){//账号密码验证失败
+				request.setAttribute("info", "账号密码错误,请重新输入");
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
+			}else{//验证码错误
+				request.setAttribute("info", "验证码错误,请重新登录");
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
+			}
+		}/*doPost*/
+	}/*class*/
 
 }
 

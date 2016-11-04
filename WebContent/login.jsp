@@ -21,7 +21,7 @@
 				opacity: 0.9;
 				margin-left: auto;
 				margin-right: auto;
-				width: 250px;
+				width: 300px;
 				text-align: center;
 
 			}
@@ -32,9 +32,9 @@
 			.login_form{
 				opacity: 0.9;
 				background-color: #C0C0C0;
-				width: 250px;
-				margin-left: auto;
-				margin-right: auto;
+				width: 300px;
+				margin:auto;
+				
 			}
 			.regist_href{
 				width: 136px;
@@ -45,10 +45,16 @@
 				height: 100px;
 			}
 		</style>
+		
+		<script type="text/javascript">
+		    //刷新验证码
+		    function changeImg(){
+		        document.getElementById("verifyCode").src="${pageContext.request.contextPath}/drawimage.do?"+Math.random();
+		    }
+    	</script>
 	</head>
 	<body background="img/bg.jpeg">
 		<div class="blank_">
-			
 		</div>
 		<div class="container">
 			<div class="col-md-4 col-sm-4 col-xs-4">
@@ -58,32 +64,35 @@
 				<div class="row login_block">
 					<div class="row login_h1">
 						<h4>携手Sicau 共创地球村</h4>
+						${info}
 					</div>
 					<div class="row login_form">
-					<% 
-								if(session.getAttribute("userid").toString().equals("error")){
-									%>
-										<script type="text/javascript">
-											alert("操你妈  账号密码错了!");
-										</script>
-									<%
-								}%>
 						<br/>
 						<br/>
 						<form class="form-login" action="login.do" method="post">
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<span class="glyphicon glyphicon-user">&nbsp;&nbsp;</span><input name="username" value="" placeholder="请输入用户名" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-user">&nbsp;&nbsp;</span><input name="username" id="userid" value="" placeholder="请输入用户名" />
+							<br/>
+							<br/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-lock">&nbsp;&nbsp;</span><input type="password" id="userpwd" name="userpassword" placeholder="请输入密码"/>
+							<br/>
+							<br/>
+							<%--这里是加载验证码的地方 --%>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-pencil">&nbsp;&nbsp;</span>
+							<input type="text"  name="verify" placeholder="请输入验证码">
+							<br/><br/>
+							<div style="height:26px; width:118px; float:left;"></div>
+							<img src="${pageContext.request.contextPath}/drawimage.do" onclick="changeImg()" id="verifyCode">
 							<br/>
 							<br/>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<span class="glyphicon glyphicon-lock">&nbsp;&nbsp;</span><input type="password" name="userpassword" placeholder="请输入密码"/>
-							<br/>
-							<br/>
 							<input class="login_btn btn btn-info btn-lg" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
 							<br/>
 							<br/>
 							<div class="regist_href">
-								<a href="regist.html">没有账号?去注册</a>
+								<a href="regist.jsp">没有账号?去注册</a>
 							</div>
 							<br/>
 							<br/>

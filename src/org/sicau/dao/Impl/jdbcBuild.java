@@ -52,8 +52,15 @@ public abstract class jdbcBuild {
 		DBConnection.closeConnection();
 		return i;
 	}
-	
-	
+	/*
+	 * 增加一条数据
+	 * */
+	public int addOneRow(String sql, Object...params) throws SQLException{
+		Connection con = DBConnection.getConnection();
+		QueryRunner queryRunner = new QueryRunner();
+		int i = queryRunner.update(con, sql, params);//插入一条记录
+		return i;
+	}
 	
 	
 }

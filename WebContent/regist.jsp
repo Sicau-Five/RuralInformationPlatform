@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html class="ui-page-login">
 
@@ -53,25 +55,26 @@
 				<form class="mui-input-group" method="post" action="regist.do">
 					<div class="mui-input-row">
 						<label>ID用户名</label>
-						<input id='account' name="userId" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+						<input name="userId" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 					</div>
 					<div class="mui-input-row">
 						<label>姓名</label>
-						<input id='account' name="userName" type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+						<input name="userName" type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
 					</div>
 					<div class="mui-input-row">
 						<label>密码</label>
-						<input id='password' name="userPwd" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+						<input name="userPwd" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 					</div>
 					<div class="mui-input-row">
 						<label>确认</label>
-						<input id='password_confirm' name="userPwdCon" type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+						<input name="userPwdCon" type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
 					</div>
 					<div class="mui-input-row">
 						<label>邮箱</label>
-						<input id='email' type="email" name="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
+						<input type="email" name="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
 					</div>
 					<input class="login_btn btn btn-info btn-lg" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+					${registInfo}
 				</form>
 			</div>
 		</div>

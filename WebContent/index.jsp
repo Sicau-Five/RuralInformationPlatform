@@ -127,11 +127,11 @@
 				      <% 
 				      	String userid = session.getAttribute("userid") == null?"":session.getAttribute("userid").toString();
 				    		
-				    		if(!(userid == "")){%>
+				    		if(!(userid == "" && !userid.equals("error"))){%>
 				    			<li><a>欢迎您,<%=userid %></a></li>
 				    		
 				    		<%}else{%>
-				    			<li><a href="login.html">登录</a></li>
+				    			<li><a href="login.jsp">登录</a></li>
 				    		<%}%>
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">扫二维码登录 <span class="caret"></span></a>
