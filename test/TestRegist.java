@@ -11,7 +11,7 @@ public class TestRegist {
 	
 	@Test
 	public void m1() throws SQLException{
-		Object[] params = {"test","test","test","test"};
+		Object[] params = {"sfs","asdqw","qdqw","dqdwq"};
 		Connection con = DBConnection.getConnection();
 		String sql = "insert into user(userid,username,userpwd,email)values(?,?,?,?)";
 		QueryRunner queryRunner = new QueryRunner();

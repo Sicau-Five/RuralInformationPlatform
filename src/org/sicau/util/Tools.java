@@ -19,7 +19,7 @@ public class Tools {
 	 */
 	public static String MD5Encode(String Strsrc, String key) {
 		try {
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			MessageDigest md5 = MessageDigest.getInstance("md5");
 			md5.update(Strsrc.getBytes("UTF8"));
 			String result = "";
 			byte[] temp;
